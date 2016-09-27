@@ -73,12 +73,12 @@
     if (navigator.userAgent.match(/Chrome/)) {
       setTimeout(openFallback(Date.now(), wait, options.chromeUrlScheme), wait);
       window.location = options.urlScheme;
-      return;
     } else if(navigator.userAgent.match(/Firefox/)) {
       setTimeout(openFallback(Date.now(), wait, options.storeLink), wait);
       window.location = options.urlScheme;
     } else {
-      deeplink._launchiFrame(options);
+      setTimeout(openFallback(Date.now(), wait, options.storeLink), wait);
+      window.location = options.shortLink;
     }
   };
 
@@ -86,19 +86,6 @@
    * launch use iframe
    */
   deeplink._launchiFrame = function (options) {
-    var iframe = document.createElement("iframe");
-    iframe.src = options.urlScheme;
-    iframe.style.border = "none";
-    iframe.style.display = 'none';
-    iframe.style.width = "1px";
-    iframe.style.height = "1px";
-    iframe.onload = function() {
-      if (!!options.storeLink) {
-        window.location = options.storeLink;
-      }
-    };
-
-    document.body.appendChild(iframe);
 
   };
 
